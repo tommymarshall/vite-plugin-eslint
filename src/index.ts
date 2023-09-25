@@ -32,6 +32,7 @@ export default function eslintPlugin(rawOptions: Options = {}): Plugin {
           emitError: true,
           failOnWarning: false,
           failOnError: true,
+          failBuild: false,
           errorOnUnmatchedPattern: false,
         },
         rawOptions
@@ -101,6 +102,10 @@ export default function eslintPlugin(rawOptions: Options = {}): Plugin {
 
       if (error) {
         this.error(error.message)
+
+        if (options.failBuild) {
+          process.exit(1)
+        }
       }
 
       return null
